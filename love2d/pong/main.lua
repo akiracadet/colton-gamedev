@@ -1,12 +1,7 @@
 push = require 'push'
 Class = require 'class'
 
--- our Paddle class, which stores position and dimensions for each Paddle
--- and our logic for rendering them
 require 'Paddle'
-
--- our Ball class, which isn't much different than a Paddle structure-wise
--- but which will mechanically function very differently
 require 'Ball'
 
 WINDOW_WIDTH = 1280
@@ -19,6 +14,9 @@ PADDLE_SPEED = 200
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
+
+    -- set the title of our application window
+    love.window.setTitle("Pong")
 
     math.randomseed(os.time())
 
@@ -34,12 +32,9 @@ function love.load()
     player1Score = 0
     player2Score = 0
 
-    -- initialize our player paddles; make them global so that they can be
-    -- detected by other functions and modules
     player1 = Paddle(10, 30, 5, 20)
     player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 30, 5, 20)
 
-    -- place a ball in the middle of the screen
     ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
 
     gameState = "start"
@@ -101,12 +96,19 @@ function love.draw()
     love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
     love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
 
-    -- render paddles, now using their class's render method
     player1:render()
     player2:render()
-
-    -- render ball using its class's render method
     ball:render()
 
+    -- new function just to demonstrate how to see FPS in LÖVE2D
+    displayFPS()
+
     push:apply('end')
+end
+
+function displayFPS()
+    -- simple FPS display across all states
+    love.graphics.setFont(smallFont)
+    love.graphics.setColor(0, 255/255, 0, 255/255)
+    love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 10, 10)
 end
