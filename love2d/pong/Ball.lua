@@ -7,7 +7,7 @@ function Ball:init(x, y, width, height)
     self.height = height
 
     self.dy = math.random(2) == 1 and -100 or 100
-    self.dx = math.random(-50, 50)
+    self.dx = math.random(2) == 1 and math.random(-80, -100) or math.random(80, 100)
 end
 
 function Ball:collides(paddle)
@@ -15,7 +15,7 @@ function Ball:collides(paddle)
         return false
     end
 
-    if self.y > paddle.y + paddle.height or paddle.y > self.x + self.height then
+    if self.y > paddle.y + paddle.height or paddle.y > self.y + self.height then
         return false
     end
 
