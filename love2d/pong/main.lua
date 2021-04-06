@@ -52,6 +52,10 @@ function love.load()
     gameState = "start"
 end
 
+function love.resize(w, h)
+    push:resize(w, h)
+end
+
 function love.update(dt)
     if gameState == "serve" then
         -- before switching to play, initialize ball's velocity based
@@ -75,6 +79,8 @@ function love.update(dt)
             else
                 ball.dy = math.random(10, 150)
             end
+
+            sounds['paddle_hit']:play()
         end
 
         if ball:collides(player2) then
