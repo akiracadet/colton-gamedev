@@ -35,7 +35,8 @@ function love.load()
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,
-        vsync = true
+        vsync = true,
+        canvas = false
     })
 
     player1Score = 0
@@ -239,6 +240,7 @@ function displayFPS()
     love.graphics.setFont(smallFont)
     love.graphics.setColor(0, 255/255, 0, 255/255)
     love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 10, 10)
+    love.graphics.setColor(255, 255, 255, 255)
 end
 
 function displayScore()
